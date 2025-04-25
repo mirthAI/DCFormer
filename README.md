@@ -4,11 +4,9 @@ Official PyTorch implementation of:
 [DCFormer: Efficient 3D Vision Encoder for Medical Vision-Language Models](https://arxiv.org/abs/2502.05091)
 
 ---
-## 📌 Overview
+## 📌 Abstract
 
-**DCFormer** is an efficient 3D vision encoder designed to scale Vision-Language Models (VLMs) to high-resolution volumetric data. Unlike computationally expensive ViTs or heavy 3D CNNs, DCFormer factorizes 3D convolutions into **three parallel 1D convolutions** along depth, height, and width — reducing FLOPs and parameter count while preserving spatial context.
-
-> 💡 Integrated into a CLIP-based vision-language framework, DCFormer achieves **state-of-the-art performance** in zero-shot and fine-tuned pathology detection and image-text retrieval on the large-scale **CT-RATE** dataset.
+Vision-language models (VLMs) have been widely applied to 2D medical image analysis due to their ability to align visual and textual representations. However, extending VLMs to 3D imaging remains computationally challenging. Existing 3D VLMs often rely on Vision Transformers (ViTs), which are computationally expensive due to the quadratic complexity of self-attention, or on 3D convolutions, which require large numbers of parameters and FLOPs as kernel size increases. We introduce DCFormer, an efficient 3D image encoder that factorizes 3D convolutions into three parallel 1D convolutions along the depth, height, and width dimensions. This design preserves spatial information while significantly reducing computational cost. Integrated into a CLIP-based vision-language framework, DCFormer is trained and evaluated on CT-RATE, a dataset of 50,188 paired 3D chest CT volumes and radiology reports. In zero-shot and fine-tuned detection of 18 pathologies, as well as in image–text retrieval tasks, DCFormer consistently outperforms state-of-the-art 3D vision encoders, including CT-ViT, ViT, ConvNeXt, PoolFormer, and TransUNet. These results highlight DCFormer’s potential for scalable, clinically deployable 3D medical VLMs.
 
 ---
 
