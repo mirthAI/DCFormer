@@ -19,23 +19,27 @@ Vision-language models (VLMs) have been widely applied to 2D medical image analy
 
 ---
 
-## 📊 Results Summary
+### 📊 Zero-shot Results Summary
 
-Model | Variant | Params (M) | GFLOPS | Accuracy (%) | F1 Score (%) | Precision (%) | Recall (%)
-DCFormer | nano | 0.92 | 34.21 | 60.4 | 41.9 | 27.2 | 62.8
-ConvNeXt [¹] | nano | 3.19 | 31.92 | 62.2 | 39.4 | 26.7 | 55.1
-PoolFormer [²] | nano | 2.79 | 27.14 | 60.2 | 37.0 | 24.8 | 52.3
-DCFormer | naïve | 5.85 | 49.48 | 63.1 | 44.5 | 29.5 | 65.5
-ViT [³] | naïve | 11.10 | 39.05 | 55.0 | 42.5 | 25.8 | 71.5
-ConvNeXt [¹] | naïve | 15.63 | 96.84 | 60.7 | 42.4 | 27.7 | 63.8
-PoolFormer [²] | naïve | 11.31 | 63.75 | 60.1 | 39.1 | 25.7 | 56.8
-TransUNet [⁴] | naïve | 12.48 | 118.9 | 58.6 | 41.4 | 26.5 | 56.0
-DCFormer | tiny | 15.1 | 168.2 | 62.0 | 46.3 | 29.7 | 70.1
-ViT [³] | tiny | 26.34 | 86.43 | 61.0 | 43.2 | 28.0 | 64.8
-ConvNeXt [¹] | tiny | 31.59 | 156.31 | 62.5 | 42.1 | 28.2 | 60.1
-TransUNet [⁴] | tiny | 23.93 | 207.5 | 61.5 | 35.8 | 24.7 | 48.7
-PoolFormer [²] | tiny | 20.68 | 117.46 | 61.8 | 38.3 | 26.0 | 53.5
-CTViT [⁵] | - | 101.1 | 160.5 | 62.9 | 44.3 | 29.3 | 65.7
+> **Zero-shot performance of models trained on the CT-RATE dataset at the resolution of 512×512×256.**
+
+| Model Variant             | Params (M) | GFLOPS | Accuracy (%) | F1 Score (%) | Precision (%) | Recall (%) |
+|---------------------------|------------|--------|---------------|----------------|----------------|--------------|
+| **DCFormer (nano)**       | 0.92       | 34.21  | 60.4          | 41.9           | 27.2           | 62.8         |
+| ConvNeXt (nano)           | 3.19       | 31.92  | 62.2          | 39.4           | 26.7           | 55.1         |
+| PoolFormer (nano)         | 2.79       | 27.14  | 60.2          | 37.0           | 24.8           | 52.3         |
+| **DCFormer (naïve)**      | 5.85       | 49.48  | 63.1          | 44.5           | 29.5           | 65.5         |
+| ViT (naïve)               | 11.10      | 39.05  | 55.0          | 42.5           | 25.8           | 71.5         |
+| ConvNeXt (naïve)          | 15.63      | 96.84  | 60.7          | 42.4           | 27.7           | 63.8         |
+| PoolFormer (naïve)        | 11.31      | 63.75  | 60.1          | 39.1           | 25.7           | 56.8         |
+| TransUNet (naïve)         | 12.48      | 118.9  | 58.6          | 41.4           | 26.5           | 56.0         |
+| **DCFormer (tiny)**       | 15.1       | 168.2  | 62.0          | 46.3           | 29.7           | 70.1         |
+| ViT (tiny)                | 26.34      | 86.43  | 61.0          | 43.2           | 28.0           | 64.8         |
+| ConvNeXt (tiny)           | 31.59      | 156.31 | 62.5          | 42.1           | 28.2           | 60.1         |
+| TransUNet (tiny)          | 23.93      | 207.5  | 61.5          | 35.8           | 24.7           | 48.7         |
+| PoolFormer (tiny)         | 20.68      | 117.46 | 61.8          | 38.3           | 26.0           | 53.5         |
+| CTViT                     | 101.1      | 160.5  | 62.9          | 44.3           | 29.3           | 65.7         |
+
 
 > 📄 Full results in the [paper](https://arxiv.org/abs/2502.05091).
 
