@@ -1,9 +1,8 @@
 # 🧠 DCFormer: Efficient 3D Vision Encoder for Medical Vision-Language Models
 
-**[[arXiv Paper]](https://arxiv.org/abs/XXXX.XXXXX)** | **[[Project Page]](https://mirthai.github.io/DCFormer)** | **[[Dataset: CT-RATE]][https://...](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE)**
+**[[arXiv Paper]](https://arxiv.org/abs/XXXX.XXXXX)** | **[[Project Page]](https://mirthai.github.io/DCFormer)** | **[[Dataset: CT-RATE]]([https://...](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE))**
 
 ---
-
 ## 📌 Overview
 
 **DCFormer** is an efficient 3D vision encoder designed to scale Vision-Language Models (VLMs) to high-resolution volumetric data. Unlike computationally expensive ViTs or heavy 3D CNNs, DCFormer factorizes 3D convolutions into **three parallel 1D convolutions** along depth, height, and width — reducing FLOPs and parameter count while preserving spatial context.
