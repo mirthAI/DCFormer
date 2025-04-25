@@ -27,7 +27,7 @@
 | Zero-shot Pathology Det.  | AUC       | **0.843**| 0.804  | 0.792     | 0.785      |
 | Image-Text Retrieval       | Recall@1  | **38.7** | 32.4   | 28.6      | 29.8       |
 
-> 📄 Full results and ablations in the [paper](https://arxiv.org/abs/XXXX.XXXXX).
+> 📄 Full results and ablations in the [paper](https://arxiv.org/abs/2502.05091).
 
 ---
 
