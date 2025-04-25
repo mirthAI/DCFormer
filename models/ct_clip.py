@@ -6,11 +6,36 @@ from einops import rearrange, repeat
 from einops.layers.torch import Rearrange, Reduce
 from models.ct_clip_utils import *
 from models.utils.main_blocks import PreNorm, Attention, FeedForward, LayerNorm, PatchDropout, RotaryEmbedding
-from models.convnext import LayerNorm
 # checkpointing helper function
 class RearrangeImage(nn.Module):
     def forward(self, x):
         return rearrange(x, 'b (h w z) c -> b c h w z', h = h_r, w= w_r)
+
+class LayerNorm(nn.Module):
+    r""" LayerNorm that supports two data formats: channels_last (default) or channels_first. 
+    The ordering of the dimensions in the inputs. channels_last corresponds to inputs with 
+    shape (batch_size, height, width, channels) while channels_first corresponds to inputs 
+    with shape (batch_size, channels, height, width).
+    """
+    def __init__(self, normalized_shape, eps=1e-6, data_format="channels_last"):
+        super().__init__()
+        self.weight = nn.Parameter(torch.ones(normalized_shape))
+        self.bias = nn.Parameter(torch.zeros(normalized_shape))
+        self.eps = eps
+        self.data_format = data_format
+        if self.data_format not in ["channels_last", "channels_first"]:
+            raise NotImplementedError 
+        self.normalized_shape = (normalized_shape, )
+    
+    def forward(self, x):
+        if self.data_format == "channels_last":
+            return F.layer_norm(x, self.normalized_shape, self.weight, self.bias, self.eps)
+        elif self.data_format == "channels_first":
+            u = x.mean(1, keepdim=True)
+            s = (x - u).pow(2).mean(1, keepdim=True)
+            x = (x - u) / torch.sqrt(s + self.eps)
+            x = self.weight[:, None, None, None] * x + self.bias[:, None, None, None]
+            return x
 
 
 class ProjectionHead(nn.Module):
@@ -339,7 +364,8 @@ class CTCLIP(nn.Module):
         self.load_state_dict(pt)
 
 
-    def forward(
+
+    def forward( 
         self,
         image,
         text,
@@ -367,29 +393,29 @@ class CTCLIP(nn.Module):
         text_embeddings = self.text_transformer(text.input_ids, attention_mask = text.attention_mask )
         enc_text = text_embeddings[0]
 
-        # enc_image= self.visual_transformer(video=image, device=device)
+        enc_image= self.visual_transformer(video=image, device=device)
 
         #print("This is visual encoding")
         # print(enc_image.shape)
 
-        # global h_r, w_r, z_r
-        # h_r, w_r, z_r = enc_image.shape[1], enc_image.shape[2], enc_image.shape[3]
+        global h_r, w_r, z_r
+        h_r, w_r, z_r = enc_image.shape[1], enc_image.shape[2], enc_image.shape[3]
 
-        # if self.reduction == 'depth':
-        #     enc_image = enc_image.mean(dim=1)
+        if self.reduction == 'depth':
+            enc_image = enc_image.mean(dim=1)
 
-        # elif self.reduction == 'channel':
-        #     enc_image = enc_image.mean(dim=[-4, -3, -2])
+        elif self.reduction == 'channel':
+            enc_image = enc_image.mean(dim=[-4, -3, -2])
 
-        # enc_image = enc_image.view(enc_image.shape[0], -1)    
+        enc_image = enc_image.view(enc_image.shape[0], -1)    
             
         # #comment
         # enc_image = enc_image.mean(dim=[-4, -3, -2])
 
-        # enc_image = enc_image[:, :] if enc_image.ndim == 3 else enc_image     
+        enc_image = enc_image[:, :] if enc_image.ndim == 3 else enc_image     
         # #comment
 
-        # image_latents = self.to_visual_latent(enc_image)
+        image_latents = self.to_visual_latent(enc_image)
 
         # project to latents
         #text_embeds = text_embeds.view(text_embeds.shape[0], -1)
@@ -399,74 +425,10 @@ class CTCLIP(nn.Module):
         text_embeds = text_embeds[:,0,:]
         text_latents = self.to_text_latent(text_embeds)
 
-        text_latents = l2norm(text_latents)
+        text_latents, image_latents = map(l2norm, (text_latents, image_latents))
+        temperature = nn.Parameter(torch.tensor(1.))
+        temp = temperature.exp()
 
-
-        return None, text_latents
-    # def forward( 
-    #     self,
-    #     image,
-    #     text,
-    #     device,
-    #     validation=False
-        
-    # ):
-
-    #     # derive text mask
-
-    #     text_mask =text.attention_mask
-
-    #     # concat augmented texts and images and do some asserts
-
-    #     num_batch_texts = num_batch_images = 1
-    #     #assert not (return_loss and not self.training), 'loss cannot be used if not training'
-    #     # get encoded text
-
-    #     text_args = (text.input_ids,text.attention_mask)
-
-    #     text_args = (*text_args, text_mask)
-
-    #     # print(text.input_ids.shape)
-
-    #     text_embeddings = self.text_transformer(text.input_ids, attention_mask = text.attention_mask )
-    #     enc_text = text_embeddings[0]
-
-    #     enc_image= self.visual_transformer(video=image, device=device)
-
-    #     #print("This is visual encoding")
-    #     # print(enc_image.shape)
-
-    #     global h_r, w_r, z_r
-    #     h_r, w_r, z_r = enc_image.shape[1], enc_image.shape[2], enc_image.shape[3]
-
-    #     if self.reduction == 'depth':
-    #         enc_image = enc_image.mean(dim=1)
-
-    #     elif self.reduction == 'channel':
-    #         enc_image = enc_image.mean(dim=[-4, -3, -2])
-
-    #     enc_image = enc_image.view(enc_image.shape[0], -1)    
-            
-    #     # #comment
-    #     # enc_image = enc_image.mean(dim=[-4, -3, -2])
-
-    #     enc_image = enc_image[:, :] if enc_image.ndim == 3 else enc_image     
-    #     # #comment
-
-    #     image_latents = self.to_visual_latent(enc_image)
-
-    #     # project to latents
-    #     #text_embeds = text_embeds.view(text_embeds.shape[0], -1)
-
-                
-    #     text_embeds = enc_text[:, :] if enc_text.ndim == 3 else enc_text
-    #     text_embeds = text_embeds[:,0,:]
-    #     text_latents = self.to_text_latent(text_embeds)
-
-    #     text_latents, image_latents = map(l2norm, (text_latents, image_latents))
-    #     temperature = nn.Parameter(torch.tensor(1.))
-    #     temp = temperature.exp()
-
-    #     if validation:
-    #         return einsum('b d, b d -> b', text_latents, image_latents) * temp
-    #     return image_latents, text_latents
+        if validation:
+            return einsum('b d, b d -> b', text_latents, image_latents) * temp
+        return image_latents, text_latents
