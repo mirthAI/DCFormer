@@ -4,9 +4,7 @@ Official PyTorch implementation of:
 [DCFormer: Efficient 3D Vision Encoder for Medical Vision-Language Models](https://arxiv.org/abs/2502.05091)
 
 ![DCFormer CLIP Framework](docs/clip.png)
-<div style="background-color: white; padding: 10px;">
-  <img src="docs/clip" alt="DCFormer Architecture" width="600">
-</div>
+
 ---
 ## 📌 Abstract
 
