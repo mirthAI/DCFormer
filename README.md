@@ -1,6 +1,6 @@
 # 🧠 DCFormer: Efficient 3D Vision Encoder for Medical Vision-Language Models
 
-**[[arXiv Paper]](https://arxiv.org/abs/XXXX.XXXXX)** | **[[Project Page]](https://mirthai.github.io/DCFormer)** | **[[Dataset: CT-RATE]]([https://...](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE))**
+**[[arXiv Paper]](https://arxiv.org/abs/XXXX.XXXXX)** | **[[Project Page]](https://mirthai.github.io/DCFormer)** | **[[Dataset: CT-RATE]][https://...](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE)**
 
 ---
 
