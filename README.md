@@ -92,13 +92,15 @@ Vision-language models (VLMs) have been widely applied to 2D medical image analy
 
 ---
 
-## 🚀 Getting Started
+## Training
 
-### 1. Clone the repo
+### CLIP Pretraining
+To train the DCFormer based CLIP model, use the following command:
+
 ```bash
-git clone https://github.com/mirthAI/DCFormer.git
-cd DCFormer
+sh dcformer.sh
 ```
+
 ## References
 The code is mainly adapted from [CT-CLIP](https://github.com/ibrahimethemhamamci/CT-CLIP/tree/main).
 
