@@ -2,6 +2,9 @@
 
 **[[arXiv Paper]](https://arxiv.org/abs/2502.05091)** | **[[Dataset: CT-RATE]](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE)**
 
+Official PyTorch implementation of: 
+[DCFormer: Efficient 3D Vision Encoder for Medical Vision-Language Models](https://arxiv.org/abs/2502.05091)
+
 ---
 ## 📌 Overview
 
