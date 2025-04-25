@@ -45,3 +45,29 @@ Vision-language models (VLMs) have been widely applied to 2D medical image analy
 ```bash
 git clone https://github.com/mirthAI/DCFormer.git
 cd DCFormer
+```
+## References
+The code is mainly adapted from [CT-CLIP](https://github.com/ibrahimethemhamamci/CT-CLIP/tree/main).
+
+
+## Citations and Acknowledgements
+The code is only for research purposes. If you have any questions regarding how to use this code, feel free to contact Gorkem Can Ates at g.canates@gmail.com.
+
+Kindly cite the following papers if you use our code.
+
+```bibtex
+@article{ates2025dcformer,
+  title={DCFormer: Efficient 3D Vision-Language Modeling with Decomposed Convolutions},
+  author={Ates, Gorkem Can and Gong, Kuang and Shao, Wei},
+  journal={arXiv preprint arXiv:2502.05091},
+  year={2025}
+}
+@article{hamamci2024developing,
+  title={Developing Generalist Foundation Models from a Multimodal Dataset for 3D Computed Tomography},
+  author={Hamamci, Ibrahim Ethem and Er, Sezgin and Almas, Furkan and Simsek, Ayse Gulnihan and Esirgun, Sevval Nil and Dogan, Irem and Dasdelen, Muhammed Furkan and Durugol, Omer Faruk and Wittmann, Bastian and Amiranashvili, Tamaz and others},
+  journal={arXiv preprint arXiv:2403.17834},
+  year={2024}
+}
+
+```
+
