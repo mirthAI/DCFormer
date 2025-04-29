@@ -100,7 +100,7 @@ Vision-language models (VLMs) have been widely applied to 2D medical image analy
 To train the DCFormer based CLIP model, use the following command:
 
 ```bash
-sh dcformer.sh
+sbatch dcformer.sh
 ```
 
 ## References
